@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มสินค้า - Crimson store</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #111;
+            color: white;
+        }
+
+        .top-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        #login, #addwork {
+            width: 350px;
+            margin: 30px auto;
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.4);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff2ed2;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .back-btn {
+            background-color: #2a2a2a;
+        }
+
+        .delete-btn {
+            background-color: red;
+            margin-top: 10px;
+        }
+
+        .product-admin-list {
+            margin-top: 30px;
+        }
+
+        .admin-card {
+            background-color: #2a2a2a;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        .admin-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-box">
+        <div>
+            <img src="img/logo2.png" alt="" height="60" width="70" style="border-radius: 50%;">
+        </div>
+        <h1 style="color: #ff9fea;">Crimson store</h1>
+    </div>
+
+    <!-- ล็อกอิน -->
+    <div id="login">
+        <h2>เข้าสู่ระบบพนักงาน</h2>
+        <input type="text" id="userStaff" placeholder="userพนักงาน">
+        <input type="password" id="passwordStaff" placeholder="รหัสผ่าน">
+        <button id="confirm">ยืนยัน</button>
+    </div>
+
+    <!-- แอดมิน -->
+    <div id="addwork" hidden>
+        <h2>เพิ่มสินค้าลงเว็บไซต์</h2>
+
+        <input type="text" id="price" placeholder="ราคาสกิน">
+        <input type="text" id="scale" placeholder="สเกลสกิน เช่น 512 หรือ 1024">
+        <input type="text" id="status" placeholder="สถานะสกิน เช่น ว่าง / ขายแล้ว">
+        <input type="text" id="right" placeholder="สิทธิ์สกิน">
+        <input type="text" id="author" placeholder="ชื่อผู้ขาย">
+        <input type="file" id="imageFile" accept="image/*">
+
+        <button id="addProductBtn">เพิ่มสินค้า</button>
+        <button class="back-btn" onclick="window.location.href='index.html'">กลับหน้าแรก</button>
+
+        <!-- รายการสินค้าในหน้าแอดมิน -->
+        <div class="product-admin-list">
+            <h3>รายการสินค้าทั้งหมด</h3>
+            <div id="adminProductList"></div>
+        </div>
+    </div>
+
+    <script>
+        const user = document.getElementById("userStaff")
+        const password = document.getElementById("passwordStaff")
+        const addwork = document.getElementById("addwork")
+        const confirmButton = document.getElementById("confirm")
+        const login = document.getElementById("login")
+
+        const priceInput = document.getElementById("price")
+        const scaleInput = document.getElementById("scale")
+        const statusInput = document.getElementById("status")
+        const rightInput = document.getElementById("right")
+        const authorInput = document.getElementById("author")
+        const imageFile = document.getElementById("imageFile")
+        const addProductBtn = document.getElementById("addProductBtn")
+        const adminProductList = document.getElementById("adminProductList")
+
+        // ล็อกอินพนักงาน
+        confirmButton.onclick = () => {
+            if (user.value === "Zxr.@staff" && password.value === "admin1122") {
+                alert("เข้าสู่ระบบสำเร็จ ✅")
+                addwork.hidden = false
+                login.hidden = true
+                renderAdminProducts()
+            } else {
+                alert("รหัสผิด ❌")
+            }
+        }
+
+        // เพิ่มสินค้า
+        addProductBtn.onclick = () => {
+            const price = priceInput.value.trim()
+            const scale = scaleInput.value.trim()
+            const status = statusInput.value.trim()
+            const right = rightInput.value.trim()
+            const seller = authorInput.value.trim()
+            const file = imageFile.files[0]
+
+            if (!price || !scale || !status || !right || !seller || !file) {
+                alert("กรอกข้อมูลให้ครบก่อน!")
+                return
+            }
+
+            const reader = new FileReader()
+
+            reader.onload = function(e) {
+                const imageBase64 = e.target.result
+
+                const product = {
+                    price: price,
+                    scale: scale,
+                    status: status,
+                    right: right,
+                    seller: seller,
+                    image: imageBase64
+                }
+
+                let products = JSON.parse(localStorage.getItem("products")) || []
+                products.push(product)
+                localStorage.setItem("products", JSON.stringify(products))
+
+                alert("เพิ่มสินค้าสำเร็จ 🎉")
+
+                // ล้างฟอร์ม
+                priceInput.value = ""
+                scaleInput.value = ""
+                statusInput.value = ""
+                rightInput.value = ""
+                authorInput.value = ""
+                imageFile.value = ""
+
+                renderAdminProducts()
+            }
+
+            reader.readAsDataURL(file)
+        }
+
+        // แสดงรายการสินค้าในหน้าแอดมิน
+        function renderAdminProducts() {
+            let products = JSON.parse(localStorage.getItem("products")) || []
+            adminProductList.innerHTML = ""
+
+            if (products.length === 0) {
+                adminProductList.innerHTML = "<p>ยังไม่มีสินค้า</p>"
+                return
+            }
+
+            products.forEach((product, index) => {
+                adminProductList.innerHTML += `
+                    <div class="admin-card">
+                        <img src="${product.image}" alt="รูปสินค้า">
+                        <p><b>ราคา:</b> ${product.price}</p>
+                        <p><b>สเกล:</b> ${product.scale}</p>
+                        <p><b>สถานะ:</b> ${product.status}</p>
+                        <p><b>สิทธิ์:</b> ${product.right}</p>
+                        <p><b>ผู้ขาย:</b> ${product.seller}</p>
+                        <button class="delete-btn" onclick="deleteProduct(${index})">ลบสินค้า</button>
+                    </div>
+                `
+            })
+        }
+
+        // ลบสินค้า
+        function deleteProduct(index) {
+            let products = JSON.parse(localStorage.getItem("products")) || []
+
+            let confirmDelete = confirm("คุณต้องการลบสินค้านี้ใช่ไหม?")
+            if (!confirmDelete) return
+
+            products.splice(index, 1)
+            localStorage.setItem("products", JSON.stringify(products))
+
+            alert("ลบสินค้าแล้ว 🗑️")
+            renderAdminProducts()
+        }
+    </script>
+
+</body>
+</html> 
