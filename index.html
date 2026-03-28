@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="UTF-8">
@@ -11,44 +11,37 @@
 
 <body id="body">
 
-    <div class="top-box">
-        <div>
-            <img src="img/logo2.png" alt="" height="60px" width="70px" style="border-radius: 50%;">
-        </div>
-        <h1 style="color: #ff2ed2;">Crimson Store</h1>
-        <img src="img/light.png" alt="" width="40px" id="light" style="cursor: pointer;">
-        <div></div>
-    </div>
+    <!-- TOP BAR -->
+    <header class="top-box">
+        <img src="img/logo2.png" alt="Crimson Store Logo" class="logo">
+        <h1>Crimson Store</h1>
+        <img src="img/light.png" alt="Theme Toggle" class="theme-icon" id="light">
+    </header>
 
-    <nav style="position: relative;">
-        <a href="#" id="show-all"
-            style="text-decoration: none; color: #57b1ff; font-weight: bold;">สกินใหม่</a>
-
-        <a href="#" id="show-512"
-            style="text-decoration: none; margin-left: 10px; color: #57b1ff; font-weight: bold;">สกิน 512</a>
-
-        <a href="#" id="show-1024"
-            style="text-decoration: none; margin-left: 10px; color: #57b1ff; font-weight: bold;">สกิน 1024</a>
-
-        <a href=""
-            style="text-decoration: none; margin-left: 10px; color: rgb(0, 166, 255); font-weight: bold;">ลงงาน</a>
+    <!-- NAV -->
+    <nav>
+        <a href="#" id="show-all">แสดงทั้งหมด</a>
+        <a href="#" id="show-512">สกิน 512</a>
+        <a href="#" id="show-1024">สกิน 1024</a>
+        <a href="#addwork">ลงงาน</a>
     </nav>
 
-    <div class="product">
+    <!-- PRODUCTS -->
+    <main class="product">
 
-        <!-- สินค้า 512 -->
+        <!-- 512 -->
         <div class="box1 skin-512">
             <img class="img1"
                 src="https://media.discordapp.net/attachments/1484427943005650994/1486669057087504527/Goth_emder_demon_2.png?ex=69c85234&is=69c700b4&hm=8c1b22b8310c5fd3cbe1dede69a83a43b7b91f12da58a7225b9649c863cbe852&=&format=webp&quality=lossless&width=1423&height=800"
-                alt="" height="200px">
+                alt="สินค้า 512">
 
             <div class="box1-text">
-                <h2 style="text-align: center; color: #ff009d;">ราคา 60 บาท</h2>
+                <h2 class="price">ราคา 60 บาท</h2>
                 <h4>ออฟชั่นเสริม -</h4>
                 <h4>สิทธิ์เชิงพาณิชย์</h4>
                 <h4>สเกล 512</h4>
                 <h4 class="seller">ผู้ขาย Yandev</h4>
-                <button id="example-btn1">ดูตัวอย่างสกิน</button>
+                <button class="example-btn">ดูตัวอย่างสกิน</button>
             </div>
 
             <div class="btn-inside-box1">
@@ -56,19 +49,19 @@
             </div>
         </div>
 
-        <!-- สินค้า 1024 -->
+        <!-- 1024 -->
         <div class="box1 skin-1024">
             <img class="img1"
                 src="https://cdn.discordapp.com/attachments/1458820986085441662/1487088787510268015/Goth_emder_demon_2_2.png?ex=69c7dedb&is=69c68d5b&hm=2d39549fb531f68ac0c6561373b95f07aac638f56aa4c5b5ac9a865143b1e4b8&"
-                alt="" height="200px">
+                alt="สินค้า 1024">
 
             <div class="box1-text">
-                <h2 style="text-align: center; color: #ff009d;">ราคา 350 บาท</h2>
+                <h2 class="price">ราคา 350 บาท</h2>
                 <h4>ออฟชั่นเสริม ตากระพริบ ผมฟิสิกส์</h4>
                 <h4>สิทธิ์เชิงพาณิชย์</h4>
                 <h4>สเกล 1024</h4>
                 <h4 class="seller">ผู้ขาย Yandev</h4>
-                <button id="example-btn2">ดูตัวอย่างสกิน</button>
+                <button class="example-btn">ดูตัวอย่างสกิน</button>
             </div>
 
             <div class="btn-inside-box1">
@@ -76,19 +69,19 @@
             </div>
         </div>
 
-        <!-- สินค้า 1024 -->
+        <!-- 1024 -->
         <div class="box1 skin-1024">
             <img class="img1"
                 src="https://cdn.discordapp.com/attachments/1475440751918973040/1487094977807777973/Goth_emder_demon_2_3.png?ex=69c7e49f&is=69c6931f&hm=62193b3df31a7793323acd18aa52fc3b31e35af01c154b88bb60629d0e2e4b4a"
-                alt="" height="200px">
+                alt="สินค้า 1024">
 
             <div class="box1-text">
-                <h2 style="text-align: center; color: #ff009d;">ราคา 100 บาท</h2>
+                <h2 class="price">ราคา 100 บาท</h2>
                 <h4>ออฟชั่นเสริม -</h4>
                 <h4>สิทธิ์ขาด</h4>
                 <h4>สเกล 1024</h4>
                 <h4 class="seller">ผู้ขาย Yandev</h4>
-                <button id="example-btn3">ดูตัวอย่างสกิน</button>
+                <button class="example-btn">ดูตัวอย่างสกิน</button>
             </div>
 
             <div class="btn-inside-box1">
@@ -96,64 +89,64 @@
             </div>
         </div>
 
-        
-   <div class="box1 skin-1024">
+        <!-- 1024 -->
+        <div class="box1 skin-1024">
             <img class="img1"
                 src="https://cdn.discordapp.com/attachments/1484427943005650994/1486747088762175548/227_20260326215832.png?ex=69c7f220&is=69c6a0a0&hm=4514725a7c289b0ca9ea12392fd08925147f7481516b7abfddf03bc08778eb64&"
-                alt="" height="200px">
+                alt="สินค้า 1024">
 
             <div class="box1-text">
-                <h2 style="text-align: center; color: #ff009d;">ราคา 130 บาท</h2>
-                <h4>ออฟชั่นเสริม -</h4>
-                <h4>สิทธิ์ เชิงพาณิชย์</h4>
-                <h4>สเกล 1024</h4>
-                <h4 class="seller">ผู้ขาย Charlotte</h4>
-                <button id="example-btn2">ดูตัวอย่างสกิน</button>
-            </div>
-            <div class="btn-inside-box1">
-                <p>ยังไม่ออก</p>
-            </div>
-        </div>
-
-           <div class="box1 skin-1024">
-            <img class="img1"
-                src="https://cdn.discordapp.com/attachments/1484427943005650994/1486747089349382315/227_20260326214621.png?ex=69c7f220&is=69c6a0a0&hm=e874eb99e8cb2d22ab8d2181c360ec3b2767e909759ea8c56d671e17c21dbc35&"
-                alt="" height="200px">
-
-            <div class="box1-text">
-                <h2 style="text-align: center; color: #ff009d;">ราคา 75 บาท</h2>
+                <h2 class="price">ราคา 130 บาท</h2>
                 <h4>ออฟชั่นเสริม -</h4>
                 <h4>สิทธิ์เชิงพาณิชย์</h4>
                 <h4>สเกล 1024</h4>
                 <h4 class="seller">ผู้ขาย Charlotte</h4>
-                <button id="example-btn2">ดูตัวอย่างสกิน</button>
+                <button class="example-btn">ดูตัวอย่างสกิน</button>
             </div>
+
             <div class="btn-inside-box1">
                 <p>ยังไม่ออก</p>
             </div>
         </div>
-    </div>
+
+        <!-- 1024 -->
+        <div class="box1 skin-1024">
+            <img class="img1"
+                src="https://cdn.discordapp.com/attachments/1484427943005650994/1486747089349382315/227_20260326214621.png?ex=69c7f220&is=69c6a0a0&hm=e874eb99e8cb2d22ab8d2181c360ec3b2767e909759ea8c56d671e17c21dbc35&"
+                alt="สินค้า 1024">
+
+            <div class="box1-text">
+                <h2 class="price">ราคา 75 บาท</h2>
+                <h4>ออฟชั่นเสริม -</h4>
+                <h4>สิทธิ์เชิงพาณิชย์</h4>
+                <h4>สเกล 1024</h4>
+                <h4 class="seller">ผู้ขาย Charlotte</h4>
+                <button class="example-btn">ดูตัวอย่างสกิน</button>
+            </div>
+
+            <div class="btn-inside-box1">
+                <p>ยังไม่ออก</p>
+            </div>
+        </div>
+
+    </main>
 
     <script>
         const body = document.getElementById("body");
         const lightTheme = document.getElementById("light");
 
-        let isLight = false;
+        let isLight = true;
 
         // ปุ่มเปลี่ยนธีม
         lightTheme.onclick = () => {
-            if (!isLight) {
-                body.style.backgroundColor = "white";
-                body.style.color = "black";
-                body.style.transition = ".3s";
+            if (isLight) {
+                body.classList.add("dark-mode");
                 lightTheme.src = "img/moon.png";
-                isLight = true;
-            } else {
-                body.style.backgroundColor = "";
-                body.style.color = "";
-                body.style.transition = ".3s";
-                lightTheme.src = "img/light.png";
                 isLight = false;
+            } else {
+                body.classList.remove("dark-mode");
+                lightTheme.src = "img/light.png";
+                isLight = true;
             }
         };
 
@@ -169,43 +162,26 @@
         btnAll.addEventListener("click", function (e) {
             e.preventDefault();
 
-            skins512.forEach(item => {
-                item.style.display = "block";
-            });
-
-            skins1024.forEach(item => {
-                item.style.display = "block";
-            });
+            skins512.forEach(item => item.style.display = "");
+            skins1024.forEach(item => item.style.display = "");
         });
 
         // แสดงเฉพาะ 512
         btn512.addEventListener("click", function (e) {
             e.preventDefault();
 
-            skins512.forEach(item => {
-                item.style.display = "block";
-            });
-
-            skins1024.forEach(item => {
-                item.style.display = "none";
-            });
+            skins512.forEach(item => item.style.display = "");
+            skins1024.forEach(item => item.style.display = "none");
         });
 
         // แสดงเฉพาะ 1024
         btn1024.addEventListener("click", function (e) {
             e.preventDefault();
 
-            skins512.forEach(item => {
-                item.style.display = "none";
-            });
-
-            skins1024.forEach(item => {
-                item.style.display = "block";
-            });
+            skins512.forEach(item => item.style.display = "none");
+            skins1024.forEach(item => item.style.display = "");
         });
     </script>
 
-    <script src="script.js"></script>
 </body>
-
 </html>
