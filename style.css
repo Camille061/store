@@ -19,6 +19,7 @@ body {
 body.dark-mode {
     background-color: #1a1a1a;
     color: white;
+    text-shadow: 0 4px 10px #00000089;
 }
 
 /* ===== TOP BAR ===== */
@@ -193,15 +194,6 @@ button:hover {
         flex-direction: column;
     }
 
-    nav {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    nav a {
-        width: 100%;
-        text-align: center;
-    }
 
     .product {
         grid-template-columns: 1fr;

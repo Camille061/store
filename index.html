@@ -23,7 +23,7 @@
         <a href="#" id="show-all">แสดงทั้งหมด</a>
         <a href="#" id="show-512">สกิน 512</a>
         <a href="#" id="show-1024">สกิน 1024</a>
-        <a href="#addwork">ลงงาน</a>
+
     </nav>
 
     <!-- PRODUCTS -->
@@ -150,24 +150,32 @@
     </main>
 
     <script>
-        const body = document.getElementById("body");
-        const lightTheme = document.getElementById("light");
+const body = document.getElementById("body");
+const lightTheme = document.getElementById("light");
 
-        let isLight = true;
+// โหลด theme ที่เคยเลือกไว้
+let savedTheme = localStorage.getItem("theme");
 
-        // ปุ่มเปลี่ยนธีม
-        lightTheme.onclick = () => {
-            if (isLight) {
-                body.classList.add("dark-mode");
-                lightTheme.src = "img/moon.png";
-                isLight = false;
-            } else {
-                body.classList.remove("dark-mode");
-                lightTheme.src = "img/light.png";
-                isLight = true;
-            }
-        };
+if (savedTheme === "dark") {
+    body.classList.add("dark-mode");
+    lightTheme.src = "img/moon.png";
+} else {
+    body.classList.remove("dark-mode");
+    lightTheme.src = "img/light.png";
+}
 
+// ปุ่มเปลี่ยนธีม
+lightTheme.onclick = () => {
+    body.classList.toggle("dark-mode");
+
+    if (body.classList.contains("dark-mode")) {
+        lightTheme.src = "img/moon.png";
+        localStorage.setItem("theme", "dark");
+    } else {
+        lightTheme.src = "img/light.png";
+        localStorage.setItem("theme", "light");
+    }
+};
         // ปุ่มกรองสินค้า
         const btnAll = document.getElementById("show-all");
         const btn512 = document.getElementById("show-512");
@@ -199,7 +207,9 @@
             skins512.forEach(item => item.style.display = "none");
             skins1024.forEach(item => item.style.display = "");
         });
-    </script>
+        
+        
+        </script>
 
 </body>
 </html>
