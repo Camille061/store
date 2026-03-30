@@ -89,8 +89,8 @@
 
     <!-- TOP BAR -->
     <header class="top-box">
-        <img src="img/logo2.png" alt="Crimson Store Logo" class="logo">
-        <h1>Crimson Store</h1>
+        <img  src="img/Logo.png" alt="Crimson Store Logo" class="logo">
+        <h1>Aurora Store</h1>
         <img src="img/light.png" alt="Theme Toggle" class="theme-icon" id="light">
     </header>
 
@@ -166,6 +166,23 @@
                 <button class="buy-btn" data-product="Alicia Head 512 - ราคา 70 บาท">🛒 เลือกสินค้านี้</button>
             </div>
         </div>
+
+                        <div class="box1 skin-512">
+            <img class="img1" src="img/HairGreyGirl.png" alt="สินค้า 512">
+
+            <div class="box1-text">
+                <h2 class="price">ราคา 150 บาท</h2>
+                <h4>ออฟชั่นเสริม -</h4>
+                <h4>สิทธิ์ เชิงพาณิชย์</h4>
+                <h4>สเกล 512</h4>
+                <h4 class="seller">ผู้ขาย Yandev</h4>
+            </div>
+
+            <div>
+                <button class="buy-btn" data-product="HairGrey Girl 512 - ราคา 150 บาท">🛒 เลือกสินค้านี้</button>
+            </div>
+        </div>
+
 
         <!-- 1024 -->
         <div class="box1 skin-1024">
@@ -243,169 +260,224 @@
 
     </main>
 
-    <script>
-        const body = document.getElementById("body");
-        const lightTheme = document.getElementById("light");
+  <script>
+    // =========================
+    // กันคลิกขวา + กัน DevTools
+    // =========================
 
-        // โหลด theme ที่เคยเลือกไว้
-        let savedTheme = localStorage.getItem("theme");
+    // กันคลิกขวา
+    document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        alert("ไม่อนุญาตให้คลิกขวา");
+    });
 
-        if (savedTheme === "dark") {
-            body.classList.add("dark-mode");
-            lightTheme.src = "img/moon.png";
-        } else {
-            body.classList.remove("dark-mode");
-            lightTheme.src = "img/light.png";
+    // กันปุ่มลัดต่าง ๆ
+    document.addEventListener("keydown", function (e) {
+        // F12
+        if (e.key === "F12") {
+            e.preventDefault();
+            alert("ไม่อนุญาตให้เปิด Developer Tools");
+            return false;
         }
 
-        // ปุ่มเปลี่ยนธีม
-        lightTheme.onclick = () => {
-            body.classList.toggle("dark-mode");
-
-            if (body.classList.contains("dark-mode")) {
-                lightTheme.src = "img/moon.png";
-                localStorage.setItem("theme", "dark");
-            } else {
-                lightTheme.src = "img/light.png";
-                localStorage.setItem("theme", "light");
-            }
-        };
-
-        // ปุ่มกรองสินค้า
-        const btnAll = document.getElementById("show-all");
-        const btn512 = document.getElementById("show-512");
-        const btn1024 = document.getElementById("show-1024");
-
-        const skins512 = document.querySelectorAll(".skin-512");
-        const skins1024 = document.querySelectorAll(".skin-1024");
-
-        // แสดงทั้งหมด
-        btnAll.addEventListener("click", function (e) {
+        // Ctrl + U
+        if (e.ctrlKey && e.key.toLowerCase() === "u") {
             e.preventDefault();
+            alert("ไม่อนุญาตให้ดู Source Code");
+            return false;
+        }
 
-            skins512.forEach(item => item.style.display = "");
-            skins1024.forEach(item => item.style.display = "");
-        });
-
-        // แสดงเฉพาะ 512
-        btn512.addEventListener("click", function (e) {
+        // Ctrl + Shift + I
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i") {
             e.preventDefault();
+            alert("ไม่อนุญาตให้เปิด Developer Tools");
+            return false;
+        }
 
-            skins512.forEach(item => item.style.display = "");
-            skins1024.forEach(item => item.style.display = "none");
-        });
-
-        // แสดงเฉพาะ 1024
-        btn1024.addEventListener("click", function (e) {
+        // Ctrl + Shift + J
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "j") {
             e.preventDefault();
+            alert("ไม่อนุญาตให้เปิด Console");
+            return false;
+        }
 
-            skins512.forEach(item => item.style.display = "none");
-            skins1024.forEach(item => item.style.display = "");
-        });
+        // Ctrl + Shift + C
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c") {
+            e.preventDefault();
+            alert("ไม่อนุญาตให้ Inspect Element");
+            return false;
+        }
 
+        // Ctrl + S
+        if (e.ctrlKey && e.key.toLowerCase() === "s") {
+            e.preventDefault();
+            alert("ไม่อนุญาตให้บันทึกหน้าเว็บ");
+            return false;
+        }
+    });
 
-        const webhookURL = "https://discordapp.com/api/webhooks/1487825421830717660/y2moPqd-0Fp2s76onLwv1XAoaJT82PeWZ9RT7G6mWxogdmKkpIdv0hK9LCj8N0RI3gra";
+    const body = document.getElementById("body");
+    const lightTheme = document.getElementById("light");
 
-        const buyButtons = document.querySelectorAll(".buy-btn");
-        const customerDiscord = document.getElementById("customerDiscord");
-        const selectedProductBox = document.getElementById("selectedProductBox");
-        const confirmBuyBtn = document.getElementById("confirmBuyBtn");
-        const staffUid = "1405831980473389126"
-        let selectedProduct = "";
+    // โหลด theme ที่เคยเลือกไว้
+    let savedTheme = localStorage.getItem("theme");
 
-        // เลือกสินค้า
-        buyButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                alert("จะซื้อกรุณาเข้าDiscordก่อนน้า")
-                selectedProduct = this.getAttribute("data-product");
-                selectedProductBox.textContent = "สินค้าที่เลือก: " + selectedProduct;
+    if (savedTheme === "dark") {
+        body.classList.add("dark-mode");
+        lightTheme.src = "img/moon.png";
+    } else {
+        body.classList.remove("dark-mode");
+        lightTheme.src = "img/light.png";
+    }
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
+    // ปุ่มเปลี่ยนธีม
+    lightTheme.onclick = () => {
+        body.classList.toggle("dark-mode");
+
+        if (body.classList.contains("dark-mode")) {
+            lightTheme.src = "img/moon.png";
+            localStorage.setItem("theme", "dark");
+        } else {
+            lightTheme.src = "img/light.png";
+            localStorage.setItem("theme", "light");
+        }
+    };
+
+    // ปุ่มกรองสินค้า
+    const btnAll = document.getElementById("show-all");
+    const btn512 = document.getElementById("show-512");
+    const btn1024 = document.getElementById("show-1024");
+
+    const skins512 = document.querySelectorAll(".skin-512");
+    const skins1024 = document.querySelectorAll(".skin-1024");
+
+    // แสดงทั้งหมด
+    btnAll.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        skins512.forEach(item => item.style.display = "");
+        skins1024.forEach(item => item.style.display = "");
+    });
+
+    // แสดงเฉพาะ 512
+    btn512.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        skins512.forEach(item => item.style.display = "");
+        skins1024.forEach(item => item.style.display = "none");
+    });
+
+    // แสดงเฉพาะ 1024
+    btn1024.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        skins512.forEach(item => item.style.display = "none");
+        skins1024.forEach(item => item.style.display = "");
+    });
+
+    const webhookURL = "https://discordapp.com/api/webhooks/1487825421830717660/y2moPqd-0Fp2s76onLwv1XAoaJT82PeWZ9RT7G6mWxogdmKkpIdv0hK9LCj8N0RI3gra";
+
+    const buyButtons = document.querySelectorAll(".buy-btn");
+    const customerDiscord = document.getElementById("customerDiscord");
+    const selectedProductBox = document.getElementById("selectedProductBox");
+    const confirmBuyBtn = document.getElementById("confirmBuyBtn");
+    const staffUid = "1405831980473389126";
+    let selectedProduct = "";
+
+    // เลือกสินค้า
+    buyButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            alert("จะซื้อกรุณาเข้า Discord ก่อนน้า");
+            selectedProduct = this.getAttribute("data-product");
+            selectedProductBox.textContent = "สินค้าที่เลือก: " + selectedProduct;
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
             });
         });
+    });
 
-        // ยืนยันส่งคำสั่งซื้อ
-        confirmBuyBtn.addEventListener("click", async function () {
-            const discordName = customerDiscord.value.trim();
+    // ยืนยันส่งคำสั่งซื้อ
+    confirmBuyBtn.addEventListener("click", async function () {
+        const discordName = customerDiscord.value.trim();
 
-            if (!selectedProduct) {
-                alert("กรุณาเลือกสินค้าก่อน");
-                return;
-            }
-
-            if (!discordName) {
-                alert("กรุณากรอกชื่อ Discord");
-                customerDiscord.focus();
-                return;
-            }
-
-            confirmBuyBtn.disabled = true;
-            confirmBuyBtn.textContent = "กำลังส่งคำสั่งซื้อ...";
-
-            const payload = {
-                embeds: [
-                    {
-                        title: "🛒 มีคำสั่งซื้อใหม่จาก Crimson Store",
-                        description: `ลูกค้ากดยืนยันสั่งซื้อจากหน้าเว็บ ชื่อตัวแทนผู้ขาย <@${staffUid}>`,
-                        color: 16711680,
-                        fields: [
-                            {
-                                name: "👤 ชื่อ Discord",
-                                value: discordName,
-                                inline: false
-                            },
-                            {
-                                name: "📦 สินค้าที่สั่ง",
-                                value: selectedProduct,
-                                inline: false
-                            },
-                            {
-                                name: "⏰ เวลา",
-                                value: new Date().toLocaleString("th-TH"),
-                                inline: false
-                            }
-                        ],
-                        footer: {
-                            text: "Crimson Store Order System"
-                        }
-                    }
-                ]
-            };
-
-            try {
-                const response = await fetch(webhookURL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    alert("ส่งคำสั่งซื้อสำเร็จแล้ว!");
-                    customerDiscord.value = "";
-                    selectedProduct = "";
-                    selectedProductBox.textContent = "ยังไม่ได้เลือกสินค้า";
-                } else {
-                    alert("ส่งไม่สำเร็จ");
-                }
-            } catch (error) {
-                console.error("Webhook Error:", error);
-                alert("เกิดข้อผิดพลาดในการส่ง webhook");
-            } finally {
-                confirmBuyBtn.disabled = false;
-                confirmBuyBtn.textContent = "ยืนยันส่งคำสั่งซื้อ";
-            }
-        });
-
-        const discordInvite = document.getElementById("discord")
-        discordInvite.onclick = () => {
-            window.location.href = "https://discord.gg/zESpaDYM7k"
+        if (!selectedProduct) {
+            alert("กรุณาเลือกสินค้าก่อน");
+            return;
         }
-    </script>
+
+        if (!discordName) {
+            alert("กรุณากรอกชื่อ Discord");
+            customerDiscord.focus();
+            return;
+        }
+
+        confirmBuyBtn.disabled = true;
+        confirmBuyBtn.textContent = "กำลังส่งคำสั่งซื้อ...";
+
+        const payload = {
+            embeds: [
+                {
+                    title: "🛒 มีคำสั่งซื้อใหม่จาก Crimson Store",
+                    description: `ลูกค้ากดยืนยันสั่งซื้อจากหน้าเว็บ ชื่อตัวแทนผู้ขาย <@${staffUid}>`,
+                    color: 16711680,
+                    fields: [
+                        {
+                            name: "👤 ชื่อ Discord",
+                            value: discordName,
+                            inline: false
+                        },
+                        {
+                            name: "📦 สินค้าที่สั่ง",
+                            value: selectedProduct,
+                            inline: false
+                        },
+                        {
+                            name: "⏰ เวลา",
+                            value: new Date().toLocaleString("th-TH"),
+                            inline: false
+                        }
+                    ],
+                    footer: {
+                        text: "Crimson Store Order System"
+                    }
+                }
+            ]
+        };
+
+        try {
+            const response = await fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                alert("ส่งคำสั่งซื้อสำเร็จแล้ว🛒✅!");
+                customerDiscord.value = "";
+                selectedProduct = "";
+                selectedProductBox.textContent = "ยังไม่ได้เลือกสินค้า";
+            } else {
+                alert("ส่งไม่สำเร็จ");
+            }
+        } catch (error) {
+            console.error("Webhook Error:", error);
+            alert("เกิดข้อผิดพลาดในการส่ง webhook");
+        } finally {
+            confirmBuyBtn.disabled = false;
+            confirmBuyBtn.textContent = "ยืนยันส่งคำสั่งซื้อ";
+        }
+    });
+
+    const discordInvite = document.getElementById("discord");
+    discordInvite.onclick = () => {
+        window.location.href = "https://discord.gg/zESpaDYM7k";
+    };
+</script>
+    
 
 </body>
 

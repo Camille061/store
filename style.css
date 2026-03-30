@@ -20,6 +20,7 @@ body.dark-mode {
     background-color: #1a1a1a;
     color: white;
     text-shadow: 0 4px 10px #00000089;
+    
 }
 
 /* ===== TOP BAR ===== */
@@ -43,8 +44,8 @@ body.dark-mode {
 }
 
 .logo {
-    width: 70px;
-    height: 60px;
+    width: 100px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -98,14 +99,16 @@ nav a:hover {
     width: 100%;
     min-height: 420px;
     border-radius: 12px;
-    border: 2px solid #ff0000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.247);
+    border: 2px solid #be00c2;
+    box-shadow: 0 4px 10px #0000003f;
     background-color: #ffe5ff;
     overflow: hidden;
     text-align: center;
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease;
+    text-shadow: 0 4px 10px #a40202af;
+    color: #9203ff;
 }
 
 .box1:hover {
