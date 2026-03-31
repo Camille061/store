@@ -193,11 +193,7 @@ button:hover {
 
 /* ===== MOBILE ===== */
 @media (max-width: 480px) {
-    .top-box {
-        flex-direction: column;
-    }
-
-
+ 
     .product {
         grid-template-columns: 1fr;
         padding: 10px;
