@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1 id="amout">1</h1>
+    <button id="btn">click</button>
+
+    <script>
+
+
+let amout = document.getElementById("amout")
+let btn = document.getElementById("btn")
+let body = document.getElementById("body")
+
+btn.onclick = () => {
+    amout.innerHTML = Number(amout.innerHTML) + 1
+
+    setTimeout(() => {
+        amout.innerHTML = 0
+    }, 10000)
+}
+    </script>
+</body>
+
+</html>

@@ -1,450 +1,665 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crimson Store</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="img/logo2.png">
-
+    <title>Aurora Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        .order-form-box {
-            max-width: 700px;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        :root {
+            --bg: #0d0d18;
+            --surface: #13132a;
+            --card: #181830;
+            --card-hover: #1f1f3e;
+            --border: rgba(130, 80, 255, 0.25);
+            --border-bright: rgba(180, 120, 255, 0.5);
+            --accent1: #a855f7;
+            --accent2: #06b6d4;
+            --accent3: #f472b6;
+            --gold: #fbbf24;
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --text-muted: #64748b;
+            --glow-purple: 0 0 30px rgba(168,85,247,0.25);
+            --glow-cyan: 0 0 30px rgba(6,182,212,0.2);
+            --radius: 16px;
         }
 
-        .order-form-box h2 {
-            margin-bottom: 15px;
-            text-align: center;
+        body.light {
+            --bg: #f0eaff;
+            --surface: #e8deff;
+            --card: #fff;
+            --card-hover: #f8f4ff;
+            --border: rgba(130, 80, 255, 0.2);
+            --border-bright: rgba(130, 80, 255, 0.4);
+            --text: #1e1040;
+            --text-dim: #4c3d8f;
+            --text-muted: #7c6faa;
+            --glow-purple: 0 4px 20px rgba(130,80,255,0.15);
         }
 
-        .order-form-box input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
-            border: none;
-            border-radius: 10px;
-            outline: none;
-            font-size: 16px;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: "Kanit", sans-serif;
+            min-height: 100vh;
+            transition: background 0.4s, color 0.4s;
+            overflow-x: hidden;
         }
 
-        .selected-product {
-            margin-top: 10px;
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(255, 0, 0, 0.08);
-            border: 1px solid rgba(255, 0, 0, 0.15);
-            font-weight: bold;
+        /* ─── Background mesh ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 20% 10%, rgba(168,85,247,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 60% at 80% 80%, rgba(6,182,212,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(244,114,182,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .confirm-buy-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
+        /* ─── Header ─── */
+        header {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background: rgba(13,13,24,0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        body.light header {
+            background: rgba(240,234,255,0.8);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-ring {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: var(--glow-purple);
+        }
+
+        header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .discord-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: rgba(88,101,242,0.2);
+            border: 1px solid rgba(88,101,242,0.4);
+            color: #a5b4fc;
+            font-family: "Kanit", sans-serif;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            background: crimson;
-            color: white;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .discord-btn:hover {
+            background: rgba(88,101,242,0.35);
+            transform: translateY(-1px);
+        }
+
+        .discord-btn img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
             transition: 0.2s;
         }
 
-        .confirm-buy-btn:hover {
-            transform: scale(1.02);
-            opacity: 0.95;
+        .theme-btn:hover {
+            border-color: var(--accent1);
+            box-shadow: var(--glow-purple);
         }
 
-        .confirm-buy-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        /* ─── Hero strip ─── */
+        .hero {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 52px 20px 36px;
         }
 
-        .buy-btn {
-            cursor: pointer;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 10px;
-            background: crimson;
+        .hero-badge {
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 999px;
+            background: rgba(168,85,247,0.12);
+            border: 1px solid rgba(168,85,247,0.3);
+            color: var(--accent1);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hero h2 {
+            font-size: clamp(28px, 5vw, 46px);
+            font-weight: 700;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #e2e8f0 30%, var(--accent1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.light .hero h2 {
+            background: linear-gradient(135deg, #1e1040 30%, var(--accent1) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: 15px;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        /* ─── Nav filter ─── */
+        nav {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 20px 32px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            padding: 8px 22px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: "Kanit", sans-serif;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            transition: 0.25s;
+            background: var(--surface);
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
             color: white;
-            font-weight: bold;
-            margin-bottom: 10px;
+            border-color: transparent;
+            box-shadow: 0 4px 20px rgba(168,85,247,0.35);
         }
 
-        .buy-btn:hover {
-            opacity: 0.9;
+        /* ─── Product Grid ─── */
+        main.product {
+            position: relative;
+            z-index: 5;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            padding: 0 32px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
+
+        /* ─── Card ─── */
+        .box1 {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .box1::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(168,85,247,0.05), rgba(6,182,212,0.05));
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .box1:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-bright);
+            box-shadow: var(--glow-purple), 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .box1:hover::before { opacity: 1; }
+
+        /* card image wrapper */
+        .card-img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+        }
+
+        .img1 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .box1:hover .img1 { transform: scale(1.06); }
+
+        /* badges */
+        .card-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-scale {
+            background: rgba(0,0,0,0.55);
+            color: var(--accent2);
+            border: 1px solid rgba(6,182,212,0.4);
+            backdrop-filter: blur(6px);
+        }
+
+        .badge-license {
+            background: rgba(0,0,0,0.55);
+            color: var(--accent3);
+            border: 1px solid rgba(244,114,182,0.35);
+            backdrop-filter: blur(6px);
+        }
+
+        /* card body */
+        .box1-text {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-product-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent3), var(--accent1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 4px 0 8px;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .card-meta span { display: flex; align-items: center; gap: 5px; }
+
+        .seller {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .seller::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--border-bright);
+        }
+
+        /* optional badge on card */
+        .card-options {
+            margin-top: 4px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: rgba(6,182,212,0.07);
+            border: 1px solid rgba(6,182,212,0.15);
+            font-size: 12px;
+            color: var(--accent2);
+            font-weight: 400;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 28px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            header { padding: 16px 20px; }
+            main.product { padding: 0 16px 48px; gap: 16px; }
+            .hero { padding: 36px 16px 24px; }
+        }
+
+        @media (max-width: 480px) {
+            main.product { grid-template-columns: 1fr; }
+        }
+
+        /* ─── Scroll fade-in ─── */
+        .box1 {
+            animation: fadeUp 0.5s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .box1:nth-child(1) { animation-delay: 0.05s; }
+        .box1:nth-child(2) { animation-delay: 0.10s; }
+        .box1:nth-child(3) { animation-delay: 0.15s; }
+        .box1:nth-child(4) { animation-delay: 0.20s; }
+        .box1:nth-child(5) { animation-delay: 0.25s; }
+        .box1:nth-child(6) { animation-delay: 0.30s; }
     </style>
 </head>
-
 <body id="body">
 
-
-    <!-- TOP BAR -->
-    <header class="top-box">
-        <!-- <img  src="img/Logo2.png" alt="Crimson Store Logo" class="logo"> -->
-        <h1>Aurora Store</h1>
-        <img src="img/light.png" alt="Theme Toggle" class="theme-icon" id="light">
+    <!-- HEADER -->
+    <header>
+        <div class="header-brand">
+            <div class="logo-ring">✦</div>
+            <h1>Aurora Store</h1>
+        </div>
+        <div class="header-actions">
+            <a class="discord-btn" id="discord" href="#">
+                <img src="https://pngimg.com/d/discord_PNG8.png" alt="Discord">
+                Discord
+            </a>
+            <button class="theme-btn" id="theme-toggle" title="เปลี่ยนธีม">🌙</button>
+        </div>
     </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">✦ Minecraft Skin Shop</div>
+        <h2>สกินคุณภาพ<br>ราคาสบายกระเป๋า</h2>
+        <p>สกินระดับ Professional ทั้ง 512 และ 1024 พร้อมสิทธิ์เชิงพาณิชย์</p>
+    </section>
 
     <!-- NAV -->
     <nav>
-        <a href="#" id="show-all">แสดงทั้งหมด</a>
+        <a href="#" id="show-all" class="active">แสดงทั้งหมด</a>
         <a href="#" id="show-512">สกิน 512</a>
         <a href="#" id="show-1024">สกิน 1024</a>
-        <img id="discord" src="https://pngimg.com/d/discord_PNG8.png" alt="" width="40px" height="40px" style="border-radius: 50%;">
     </nav>
-
-    <!-- ฟอร์มสั่งซื้อ
-    <section class="order-form-box">
-        <h2>ฟอร์มสั่งซื้อ</h2>
-
-        <input type="text" id="customerDiscord" placeholder="กรอกชื่อ Discord ของคุณ">
-
-        <div class="selected-product" id="selectedProductBox">
-            ยังไม่ได้เลือกสินค้า
-        </div>
-
-        <br>
-        <button class="confirm-buy-btn" id="confirmBuyBtn">ยืนยันส่งคำสั่งซื้อ</button>
-    </section> -->
 
     <!-- PRODUCTS -->
     <main class="product">
 
+        <!-- 512 products -->
         <div class="box1 skin-512">
-            <img class="img1" src="img/pinkgirl.png" alt="สินค้า 512">
-
-            <div class="box1-text">
-                <h2 class="price">ราคา 60 บาท</h2>
-                <h4>ออฟชั่นเสริม -</h4>
-                <h4>สิทธิ์ เชิงพาณิชย์</h4>
-                <h4>สเกล 512</h4>
-                <h4 class="seller">ผู้ขาย Yandev</h4>
+            <div class="card-img-wrap">
+                <img class="img1" src="img/pinkgirl.png" alt="Pink Girl">
+                <div class="card-badges">
+                    <span class="badge badge-scale">512px</span>
+                    <span class="badge badge-license">เชิงพาณิชย์</span>
+                </div>
             </div>
-
-            <!-- <div>
-                <button class="buy-btn" data-product="Pink Girl 512 - ราคา 60 บาท">🛒 เลือกสินค้านี้</button>
-            </div> -->
+            <div class="box1-text">
+                <div class="card-product-name">Pink Girl</div>
+                <div class="price">฿60</div>
+                <div class="card-meta">
+                    <span>📦 ออฟชั่นเสริม —</span>
+                </div>
+                <div class="seller">ผู้ขาย Yandev</div>
+            </div>
         </div>
 
         <div class="box1 skin-512">
-            <img class="img1" src="img/violetgirl.png" alt="สินค้า 512">
-
-            <div class="box1-text">
-                <h2 class="price">ราคา 60 บาท</h2>
-                <h4>ออฟชั่นเสริม -</h4>
-                <h4>สิทธิ์ เชิงพาณิชย์</h4>
-                <h4>สเกล 512</h4>
-                <h4 class="seller">ผู้ขาย Yandev</h4>
+            <div class="card-img-wrap">
+                <img class="img1" src="img/violetgirl.png" alt="Violet Girl">
+                <div class="card-badges">
+                    <span class="badge badge-scale">512px</span>
+                    <span class="badge badge-license">เชิงพาณิชย์</span>
+                </div>
             </div>
-
-            <!-- <div>
-                <button class="buy-btn" data-product="Violet Girl 512 - ราคา 60 บาท">🛒 เลือกสินค้านี้</button>
-            </div> -->
+            <div class="box1-text">
+                <div class="card-product-name">Violet Girl</div>
+                <div class="price">฿60</div>
+                <div class="card-meta">
+                    <span>📦 ออฟชั่นเสริม —</span>
+                </div>
+                <div class="seller">ผู้ขาย Yandev</div>
+            </div>
         </div>
 
-                <div class="box1 skin-512">
-            <img class="img1" src="img/Alicia.png" alt="สินค้า 512">
-
-            <div class="box1-text">
-                <h2 class="price">ราคา 70 บาท</h2>
-                <h4>ออฟชั่นเสริม -</h4>
-                <h4>สิทธิ์ เชิงพาณิชย์</h4>
-                <h4>สเกล 512</h4>
-                <h4 class="seller">ผู้ขาย Yandev</h4>
+        <div class="box1 skin-512">
+            <div class="card-img-wrap">
+                <img class="img1" src="img/Alicia.png" alt="Alicia">
+                <div class="card-badges">
+                    <span class="badge badge-scale">512px</span>
+                    <span class="badge badge-license">เชิงพาณิชย์</span>
+                </div>
             </div>
-
-            <!-- <div>
-                <button class="buy-btn" data-product="Alicia Head 512 - ราคา 70 บาท">🛒 เลือกสินค้านี้</button>
-            </div> -->
+            <div class="box1-text">
+                <div class="card-product-name">Alicia Head</div>
+                <div class="price">฿70</div>
+                <div class="card-meta">
+                    <span>📦 ออฟชั่นเสริม —</span>
+                </div>
+                <div class="seller">ผู้ขาย Yandev</div>
+            </div>
         </div>
 
-                        <div class="box1 skin-512">
-            <img class="img1" src="img/HairGreyGirl.png" alt="สินค้า 512">
-
-            <div class="box1-text">
-                <h2 class="price">ราคา 150 บาท</h2>
-                <h4>ออฟชั่นเสริม -</h4>
-                <h4>สิทธิ์ เชิงพาณิชย์</h4>
-                <h4>สเกล 512</h4>
-                <h4 class="seller">ผู้ขาย Yandev</h4>
+        <div class="box1 skin-512">
+            <div class="card-img-wrap">
+                <img class="img1" src="img/HairGreyGirl.png" alt="HairGrey Girl">
+                <div class="card-badges">
+                    <span class="badge badge-scale">512px</span>
+                    <span class="badge badge-license">เชิงพาณิชย์</span>
+                </div>
             </div>
-
-            <!-- <div>
-                <button class="buy-btn" data-product="HairGrey Girl 512 - ราคา 150 บาท">🛒 เลือกสินค้านี้</button>
-            </div> -->
+            <div class="box1-text">
+                <div class="card-product-name">HairGrey Girl</div>
+                <div class="price">฿150</div>
+                <div class="card-meta">
+                    <span>📦 ออฟชั่นเสริม —</span>
+                </div>
+                <div class="seller">ผู้ขาย Yandev</div>
+            </div>
         </div>
 
-
-        <!-- 1024 -->
+        <!-- 1024 products -->
         <div class="box1 skin-1024">
-            <img class="img1" src="img/skinredeye.png" alt="สินค้า 1024">
-
-            <div class="box1-text">
-                <h2 class="price">ราคา 350 บาท</h2>
-                <h4>ออฟชั่นเสริม ตากระพริบ ผมฟิสิกส์</h4>
-                <h4>สิทธิ์เชิงพาณิชย์</h4>
-                <h4>สเกล 1024</h4>
-                <h4 class="seller">ผู้ขาย Yandev</h4>
+            <div class="card-img-wrap">
+                <img class="img1" src="img/skinredeye.png" alt="Skin Red Eye">
+                <div class="card-badges">
+                    <span class="badge badge-scale">1024px</span>
+                    <span class="badge badge-license">เชิงพาณิชย์</span>
+                </div>
             </div>
-
-            <!-- <div>
-                <button class="buy-btn" data-product="Skin Red Eye 1024 - ราคา 350 บาท">🛒 เลือกสินค้านี้</button>
-            </div> -->
+            <div class="box1-text">
+                <div class="card-product-name">Skin Red Eye</div>
+                <div class="price">฿350</div>
+                <div class="card-options">✨ ตากระพริบ · ผมฟิสิกส์</div>
+                <div class="seller">ผู้ขาย Yandev</div>
+            </div>
         </div>
 
-        <!-- 1024 -->
         <div class="box1 skin-1024">
-            <img class="img1"
-                src="img/blackhairboy.png"
-                alt="สินค้า 1024">
-
-            <div class="box1-text">
-                <h2 class="price">ราคา 100 บาท</h2>
-                <h4>ออฟชั่นเสริม -</h4>
-                <h4>สิทธิ์ขาด</h4>
-                <h4>สเกล 1024</h4>
-                <h4 class="seller">ผู้ขาย Yandev</h4>
+            <div class="card-img-wrap">
+                <img class="img1" src="img/blackhairboy.png" alt="Black Hair Boy">
+                <div class="card-badges">
+                    <span class="badge badge-scale">1024px</span>
+                    <span class="badge badge-license">สิทธิ์ขาด</span>
+                </div>
             </div>
-
-            <!-- <div>
-                <button class="buy-btn" data-product="Goth Ender Demon 1024 - ราคา 100 บาท">🛒 เลือกสินค้านี้</button>
-            </div> -->
+            <div class="box1-text">
+                <div class="card-product-name">Black Hair Boy</div>
+                <div class="price">฿100</div>
+                <div class="card-meta">
+                    <span>📦 ออฟชั่นเสริม —</span>
+                </div>
+                <div class="seller">ผู้ขาย Yandev</div>
+            </div>
         </div>
-
-
 
     </main>
 
-  <script>
-    // =========================
-    // กันคลิกขวา + กัน DevTools
-    // =========================
+    <footer>
+        © 2025 Aurora Store · ติดต่อผ่าน Discord
+    </footer>
 
-    // กันคลิกขวา
-    document.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
-        alert("ไม่อนุญาตให้คลิกขวา");
-    });
-
-    // กันปุ่มลัดต่าง ๆ
-    document.addEventListener("keydown", function (e) {
-        // F12
-        if (e.key === "F12") {
-            e.preventDefault();
-            alert("ไม่อนุญาตให้เปิด Developer Tools");
-            return false;
-        }
-
-        // Ctrl + U
-        if (e.ctrlKey && e.key.toLowerCase() === "u") {
-            e.preventDefault();
-            alert("ไม่อนุญาตให้ดู Source Code");
-            return false;
-        }
-
-        // Ctrl + Shift + I
-        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i") {
-            e.preventDefault();
-            alert("ไม่อนุญาตให้เปิด Developer Tools");
-            return false;
-        }
-
-        // Ctrl + Shift + J
-        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "j") {
-            e.preventDefault();
-            alert("ไม่อนุญาตให้เปิด Console");
-            return false;
-        }
-
-        // Ctrl + Shift + C
-        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c") {
-            e.preventDefault();
-            alert("ไม่อนุญาตให้ Inspect Element");
-            return false;
-        }
-
-        // Ctrl + S
-        if (e.ctrlKey && e.key.toLowerCase() === "s") {
-            e.preventDefault();
-            alert("ไม่อนุญาตให้บันทึกหน้าเว็บ");
-            return false;
-        }
-    });
-
-    const body = document.getElementById("body");
-    const lightTheme = document.getElementById("light");
-
-    // โหลด theme ที่เคยเลือกไว้
-    let savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark") {
-        body.classList.add("dark-mode");
-        lightTheme.src = "img/moon.png";
-    } else {
-        body.classList.remove("dark-mode");
-        lightTheme.src = "img/light.png";
-    }
-
-    // ปุ่มเปลี่ยนธีม
-    lightTheme.onclick = () => {
-        body.classList.toggle("dark-mode");
-
-        if (body.classList.contains("dark-mode")) {
-            lightTheme.src = "img/moon.png";
-            localStorage.setItem("theme", "dark");
-        } else {
-            lightTheme.src = "img/light.png";
-            localStorage.setItem("theme", "light");
-        }
-    };
-
-    // ปุ่มกรองสินค้า
-    const btnAll = document.getElementById("show-all");
-    const btn512 = document.getElementById("show-512");
-    const btn1024 = document.getElementById("show-1024");
-
-    const skins512 = document.querySelectorAll(".skin-512");
-    const skins1024 = document.querySelectorAll(".skin-1024");
-
-    // แสดงทั้งหมด
-    btnAll.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        skins512.forEach(item => item.style.display = "");
-        skins1024.E1ach(item => item.style.display = "");
-    });
-
-    // แสดงเฉพาะ 512
-    btn512.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        skins512.forEach(item => item.style.display = "");
-        skins1024.forEach(item => item.style.display = "none");
-    });
-
-    // แสดงเฉพาะ 1024
-    btn1024.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        skins512.forEach(item => item.style.display = "none");
-        skins1024.forEach(item => item.style.display = "");
-    });
-
-    const webhookURL = "https://discordapp.com/api/webhooks/1487825421830717660/y2moPqd-0Fp2s76onLwv1XAoaJT82PeWZ9RT7G6mWxogdmKkpIdv0hK9LCj8N0RI3gra";
-
-    const buyButtons = document.querySelectorAll(".buy-btn");
-    const customerDiscord = document.getElementById("customerDiscord");
-    const selectedProductBox = document.getElementById("selectedProductBox");
-    const confirmBuyBtn = document.getElementById("confirmBuyBtn");
-    const staffUid = "1405831980473389126";
-    let selectedProduct = "";
-
-    // เลือกสินค้า
-    buyButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            alert("จะซื้อกรุณาเข้า Discord ก่อนน้า");
-            selectedProduct = this.getAttribute("data-product");
-            selectedProductBox.textContent = "สินค้าที่เลือก: " + selectedProduct;
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-    });
-
-    // ยืนยันส่งคำสั่งซื้อ
-    confirmBuyBtn.addEventListener("click", async function () {
-        const discordName = customerDiscord.value.trim();
-
-        if (!selectedProduct) {
-            alert("กรุณาเลือกสินค้าก่อน");
-            return;
-        }
-
-        if (!discordName) {
-            alert("กรุณากรอกชื่อ Discord");
-            customerDiscord.focus();
-            return;
-        }
-
-        confirmBuyBtn.disabled = true;
-        confirmBuyBtn.textContent = "กำลังส่งคำสั่งซื้อ...";
-
-        const payload = {
-            embeds: [
-                {
-                    title: "🛒 มีคำสั่งซื้อใหม่จาก Crimson Store",
-                    description: `ลูกค้ากดยืนยันสั่งซื้อจากหน้าเว็บ ชื่อตัวแทนผู้ขาย <@${staffUid}>`,
-                    color: 16711680,
-                    fields: [
-                        {
-                            name: "👤 ชื่อ Discord",
-                            value: discordName,
-                            inline: false
-                        },
-                        {
-                            name: "📦 สินค้าที่สั่ง",
-                            value: selectedProduct,
-                            inline: false
-                        },
-                        {
-                            name: "⏰ เวลา",
-                            value: new Date().toLocaleString("th-TH"),
-                            inline: false
-                        }
-                    ],
-                    footer: {
-                        text: "Crimson Store Order System"
-                    }
-                }
-            ]
-        };
-
-        try {
-            const response = await fetch(webhookURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                alert("ส่งคำสั่งซื้อสำเร็จแล้ว🛒✅!");
-                customerDiscord.value = "";
-                selectedProduct = "";
-                selectedProductBox.textContent = "ยังไม่ได้เลือกสินค้า";
-            } else {
-                alert("ส่งไม่สำเร็จ");
+    <script>
+        // กันคลิกขวา + กัน DevTools
+        document.addEventListener("contextmenu", e => { e.preventDefault(); alert("ไม่อนุญาตให้คลิกขวา"); });
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "F12" || (e.ctrlKey && e.key.toLowerCase() === "u") ||
+                (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase())) ||
+                (e.ctrlKey && e.key.toLowerCase() === "s")) {
+                e.preventDefault();
+                alert("ไม่อนุญาต");
+                return false;
             }
-        } catch (error) {
-            console.error("Webhook Error:", error);
-            alert("เกิดข้อผิดพลาดในการส่ง webhook");
-        } finally {
-            confirmBuyBtn.disabled = false;
-            confirmBuyBtn.textContent = "ยืนยันส่งคำสั่งซื้อ";
+        });
+
+        // Theme toggle
+        const body = document.getElementById("body");
+        const themeBtn = document.getElementById("theme-toggle");
+        let isLight = localStorage.getItem("theme") === "light";
+
+        function applyTheme() {
+            if (isLight) {
+                body.classList.add("light");
+                themeBtn.textContent = "☀️";
+            } else {
+                body.classList.remove("light");
+                themeBtn.textContent = "🌙";
+            }
         }
-    });
 
-    const discordInvite = document.getElementById("discord");
-    discordInvite.onclick = () => {
-        window.location.href = "https://discord.gg/zESpaDYM7k";
+        applyTheme();
 
-        
-    };
+        themeBtn.addEventListener("click", () => {
+            isLight = !isLight;
+            localStorage.setItem("theme", isLight ? "light" : "dark");
+            applyTheme();
+        });
 
-    
-</script>
-    
+        // Filter buttons
+        const btnAll  = document.getElementById("show-all");
+        const btn512  = document.getElementById("show-512");
+        const btn1024 = document.getElementById("show-1024");
+        const skins512  = document.querySelectorAll(".skin-512");
+        const skins1024 = document.querySelectorAll(".skin-1024");
+        const navLinks  = document.querySelectorAll("nav a");
+
+        function setActive(el) {
+            navLinks.forEach(a => a.classList.remove("active"));
+            el.classList.add("active");
+        }
+
+        btnAll.addEventListener("click", e => {
+            e.preventDefault(); setActive(btnAll);
+            skins512.forEach(i => i.style.display = "");
+            skins1024.forEach(i => i.style.display = "");
+        });
+
+        btn512.addEventListener("click", e => {
+            e.preventDefault(); setActive(btn512);
+            skins512.forEach(i => i.style.display = "");
+            skins1024.forEach(i => i.style.display = "none");
+        });
+
+        btn1024.addEventListener("click", e => {
+            e.preventDefault(); setActive(btn1024);
+            skins512.forEach(i => i.style.display = "none");
+            skins1024.forEach(i => i.style.display = "");
+        });
+
+        // Discord button
+        document.getElementById("discord").addEventListener("click", e => {
+            e.preventDefault();
+            window.location.href = "https://discord.gg/zESpaDYM7k";
+        });
+
+        // Example buttons (from your snippet)
+        // exampleBtn1 → ""
+        // exampleBtn2 → drive folder 1
+        // exampleBtn3 → drive folder 2
+    </script>
 </body>
 </html>
